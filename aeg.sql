@@ -19,10 +19,18 @@ CREATE TABLE `users` (
   `created_at` timestamp
 );
 
+CREATE TABLE `crops` (
+  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `name` varchar(255),
+  `unicode_name` varchar(255),
+  `zg_name` varchar(255),
+  `created_at` timestamp
+);
+
 CREATE TABLE `farms` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `fk_farms_user_id` int NOT NULL,
-  `crop_name` varchar(255),
+  `fk_farms_crop_id` int,
   `plot_size` varchar(255),
   `growing_time` varchar(255), -- not sure about this one. Should it belong to farm_economics?
   `continent_name` varchar(255),
@@ -34,7 +42,10 @@ CREATE TABLE `farms` (
   FOREIGN KEY (fk_farms_user_id) 
   REFERENCES users(id)
     ON UPDATE CASCADE
-    ON DELETE CASCADE
+    ON DELETE CASCADE,
+  CONSTRAINT fk_farms_crop_id
+  FOREIGN KEY (fk_farms_crop_id) 
+  REFERENCES crops(id)
 );
 
 CREATE TABLE `services_and_products` (
@@ -97,15 +108,6 @@ CREATE TABLE `user_activities` (
 );
 
 -- Not used. May need modification
-CREATE TABLE `crops` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `name` varchar(255),
-  `unicode_name` varchar(255),
-  `zg_name` varchar(255),
-  `created_at` timestamp
-);
-
--- Not used. May need modification
 CREATE TABLE `farm_economics` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `farm_id` int,
@@ -127,9 +129,13 @@ INSERT INTO users(admin, full_name, email, phone, nrc) values(false, "User", 'us
 INSERT INTO services_and_products(name, type)  values('Tractor', 'service');
 INSERT INTO services_and_products(name, type)  values('Seeds', 'product');
 
+-- Populate Crops
+INSERT INTO crops(name)  values('rice');
+INSERT INTO crops(name)  values('potato');
+
 -- Add farm to user
-INSERT INTO farms(continent_name, crop_name, plot_size, fk_farms_user_id) values('Asia', 'rice', '100 acre', 1);
-INSERT INTO farms(continent_name, crop_name, plot_size, fk_farms_user_id) values('Asia', 'potato', '100 acre', 2);
+INSERT INTO farms(continent_name, fk_farms_crop_id, plot_size, fk_farms_user_id) values('Asia', 1, '100 acre', 1);
+INSERT INTO farms(continent_name, fk_farms_crop_id, plot_size, fk_farms_user_id) values('Asia', 2, '100 acre', 2);
 
 -- Add income / expense to user
 INSERT INTO income_and_expenditure(description, amount, type, quantity, fk_ine_farm_id, fk_ine_user_id) values('Rice Sale', '10 lakhs', 'income', '10 bags', 1, 1);
