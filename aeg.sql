@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS `farm_economics`;
 DROP TABLE IF EXISTS `farms`;
 DROP TABLE IF EXISTS `crops`;
 DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `weather_stations`;
 
 CREATE TABLE `users` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
@@ -121,6 +122,20 @@ CREATE TABLE `farm_economics` (
   `created_at` timestamp
 );
 
+
+CREATE TABLE `weather_stations` (
+	`id` int PRIMARY KEY AUTO_INCREMENT,
+	`user_id` int,
+	`longitude` varchar(255),
+	`latitude` varchar(255),
+    constraint fk_user_id_in_weather_stations
+    foreign key(user_id)
+    references users(id)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
+);
+
+
 -- Populate users
 INSERT INTO users(admin, full_name, email, phone, nrc) values(true, "Admin", 'admin@aeg.com', '09989993774', '12oktn19201');
 INSERT INTO users(admin, full_name, email, phone, nrc) values(false, "User", 'user@aeg.com', '09989993775', '12oktn19201');
@@ -149,6 +164,10 @@ INSERT INTO user_activities(activity_name, from_date, to_date, fk_user_activitie
 INSERT INTO user_activities(activity_name, from_date, fk_user_activities_user_id, fk_user_activities_ine_id) values('Sold Rice', '2020-11-01 00:00:01', 1, 1);
 INSERT INTO user_activities(activity_name, from_date, fk_user_activities_user_id, fk_user_activities_ine_id) values('Utility Bill', '2020-10-01 00:00:01', 1, 2);
 INSERT INTO user_activities(activity_name, from_date, fk_user_activities_user_id, fk_user_activities_ine_id) values('Sold Rice', '2020-10-01 00:00:01', 1, 2);
+
+-- populating weather_station table
+INSERT INTO weather_stations(user_id,latitude,longitude) values(1,"16.84","96.17");
+INSERT INTO weather_stations(user_id,latitude,longitude) values(2,"16.85","96.18");
 
 -- Queries
 -- Assume that we already know user_id via session
