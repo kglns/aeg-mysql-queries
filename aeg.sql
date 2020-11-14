@@ -166,8 +166,8 @@ INSERT INTO user_activities(activity_name, from_date, fk_user_activities_user_id
 INSERT INTO user_activities(activity_name, from_date, fk_user_activities_user_id, fk_user_activities_ine_id) values('Sold Rice', '2020-10-01 00:00:01', 1, 2);
 
 -- populating weather_station table
-INSERT INTO weather_stations(user_id,latitude,longitude) values(1,"16.84","96.17");
-INSERT INTO weather_stations(user_id,latitude,longitude) values(2,"16.85","96.18");
+INSERT INTO weather_stations(fk_user_id,latitude,longitude) values(1,"16.84","96.17");
+INSERT INTO weather_stations(fk_user_id,latitude,longitude) values(2,"16.85","96.18");
 
 -- Queries
 -- Assume that we already know user_id via session
