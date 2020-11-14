@@ -125,11 +125,11 @@ CREATE TABLE `farm_economics` (
 
 CREATE TABLE `weather_stations` (
 	`id` int PRIMARY KEY AUTO_INCREMENT,
-	`user_id` int,
+	`fk_user_id` int,
 	`longitude` varchar(255),
 	`latitude` varchar(255),
     constraint fk_user_id_in_weather_stations
-    foreign key(user_id)
+    foreign key(fk_user_id)
     references users(id)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
@@ -166,8 +166,8 @@ INSERT INTO user_activities(activity_name, from_date, fk_user_activities_user_id
 INSERT INTO user_activities(activity_name, from_date, fk_user_activities_user_id, fk_user_activities_ine_id) values('Sold Rice', '2020-10-01 00:00:01', 1, 2);
 
 -- populating weather_station table
-INSERT INTO weather_stations(user_id,latitude,longitude) values(1,"16.84","96.17");
-INSERT INTO weather_stations(user_id,latitude,longitude) values(2,"16.85","96.18");
+INSERT INTO weather_stations(fk_user_id,latitude,longitude) values(1,"16.84","96.17");
+INSERT INTO weather_stations(fk_user_id,latitude,longitude) values(2,"16.85","96.18");
 
 -- Queries
 -- Assume that we already know user_id via session
