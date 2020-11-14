@@ -125,11 +125,11 @@ CREATE TABLE `farm_economics` (
 
 CREATE TABLE `weather_stations` (
 	`id` int PRIMARY KEY AUTO_INCREMENT,
-	`user_id` int,
+	`fk_user_id` int,
 	`longitude` varchar(255),
 	`latitude` varchar(255),
     constraint fk_user_id_in_weather_stations
-    foreign key(user_id)
+    foreign key(fk_user_id)
     references users(id)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
