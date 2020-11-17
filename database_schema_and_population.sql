@@ -18,7 +18,7 @@ CREATE TABLE `users` (
   `password` varchar(255),
   `phone` varchar(255),
   `nrc` varchar(255),
-  `created_at` timestamp
+  `created_at` timestamp default current_timestamp
 );
 
 CREATE TABLE `crops` (
@@ -26,7 +26,7 @@ CREATE TABLE `crops` (
   `name` varchar(255),
   `unicode_name` varchar(255),
   `zg_name` varchar(255),
-  `created_at` timestamp
+  `created_at` timestamp default current_timestamp
 );
 
 CREATE TABLE `farms` (
@@ -41,7 +41,7 @@ CREATE TABLE `farms` (
   `latitude1` varchar(255),
   `latitude2` varchar(255),
   `income_and_expenditure_id` int,
-  `created_at` timestamp,
+  `created_at` timestamp default current_timestamp,
   CONSTRAINT fk_farms_user_id
   FOREIGN KEY (fk_farms_user_id) 
   REFERENCES users(id)
@@ -56,7 +56,7 @@ CREATE TABLE `services_and_products` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255),
   `type` varchar(255),
-  `created_at` timestamp
+  `created_at` timestamp default current_timestamp
 );
 
 CREATE TABLE `income_and_expenditure` (
@@ -68,7 +68,7 @@ CREATE TABLE `income_and_expenditure` (
   `amount` varchar(255),
   `quantity` varchar(255),
   `date_incurred` timestamp,
-  `created_at` timestamp,
+  `created_at` timestamp default current_timestamp,
   CONSTRAINT fk_ine_farm
   FOREIGN KEY (fk_ine_farm_id) 
   REFERENCES farms(id)
@@ -93,7 +93,7 @@ CREATE TABLE `user_activities` (
   `activity_name` varchar(255),
   `from_date` timestamp,
   `to_date` timestamp,
-  `created_at` timestamp,
+  `created_at` timestamp default current_timestamp,
   CONSTRAINT fk_user_activities_user
   FOREIGN KEY (fk_user_activities_user_id) 
   REFERENCES users(id)
@@ -122,7 +122,7 @@ CREATE TABLE `farm_economics` (
   `recorded_method` varchar(255),
   `sell_price` varchar(255),
   `market_price` varchar(255),
-  `created_at` timestamp
+  `created_at` timestamp default current_timestamp
 );
 
 
