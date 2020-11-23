@@ -13,7 +13,7 @@ CREATE TABLE `users` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `active` boolean DEFAULT TRUE,
   `admin` boolean,
-  `full_name` varchar(255), -- we have yet to decide whether to use full_name or email as the username parameter for login
+  `full_name` varchar(255) UNIQUE, -- we have yet to decide whether to use full_name or email as the username parameter for login
   `email` varchar(255),
   `password` varchar(255),
   `phone` varchar(255),
@@ -138,6 +138,24 @@ CREATE TABLE `weather_stations` (
 		ON DELETE CASCADE
 );
 
+CREATE TABLE `weather_station_data` (
+  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `fk_station_id` int,
+  `temperature` float,
+  `humidity` float,
+  `wind_speed` float,
+  `wind_dir` float,
+  `pressure` float,
+  `soil_moisture` float,
+  `average_rainfall` float,
+  `recording_time` timestamp default current_timestamp,
+  constraint fk_station__id_in_weather_station_data
+  foreign key(fk_station_id)
+  references weather_stations(id)
+  	ON UPDATE CASCADE
+		ON DELETE CASCADE
+);
+
 
 -- Populate users
 INSERT INTO users(admin, full_name, password, email, phone, nrc) values(true, "Admin","11111111" ,'admin@aeg.com', '09989993774', '12oktn19201');
@@ -171,3 +189,7 @@ INSERT INTO user_activities(activity_name, from_date, fk_user_activities_user_id
 -- populating weather_station table
 INSERT INTO weather_stations(fk_user_id,latitude,longitude) values(1,"16.84","96.17");
 INSERT INTO weather_stations(fk_user_id,latitude,longitude) values(2,"16.85","96.18");
+
+-- populating weather_station_data table
+INSERT INTO weather_station_data(fk_station_id,temperature,humidity,wind_speed,wind_dir,pressure,soil_moisture,average_rainfall) values(1,25.8,46.8,3.4,45,1000,45.6,2);
+INSERT INTO weather_station_data(fk_station_id,temperature,humidity,wind_speed,wind_dir,pressure,soil_moisture,average_rainfall) values(1,24.8,43.8,3.5,50,1001,45.6,2);
