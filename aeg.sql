@@ -85,4 +85,19 @@ UPDATE crops set name="Potatoes",zg_name='အာလူး',unicode_name='အာ�
 
 -- ================================================================================
 
+-- INE STUFF
 
+-- insert a new ine entry
+INSERT INTO income_and_expenditure(description, amount, type, quantity, fk_ine_farm_id, fk_ine_user_id) values('Rice Sale', '10 lakhs', 'income', '10 bags', 1, 2);
+
+-- delete an ine entry
+delete from income_and_expenditure where id = 5;
+
+-- update an ine entry
+-- I think ine entries should not be updated. Just delete and create a new one.
+
+-- select ine by user
+select * from income_and_expenditure where fk_ine_user_id = 2;
+
+--select ine by user and month
+select * from income_and_expenditure where fk_ine_user_id = 2 and month(created_at) = 11;
