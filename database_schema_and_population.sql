@@ -65,9 +65,8 @@ CREATE TABLE `income_and_expenditure` (
   `fk_ine_user_id` int, -- we want to track expense by user and quickly query these
   `type` varchar(255),
   `description` varchar(255),
-  `amount` varchar(255),
+  `amount` int, -- we need to use this data for charts  
   `quantity` varchar(255),
-  `date_incurred` timestamp,
   `created_at` timestamp default current_timestamp,
   CONSTRAINT fk_ine_farm
   FOREIGN KEY (fk_ine_farm_id) 
@@ -174,10 +173,15 @@ INSERT INTO farms(continent_name, fk_farms_crop_id, plot_size, fk_farms_user_id)
 INSERT INTO farms(continent_name, fk_farms_crop_id, plot_size, fk_farms_user_id) values('Asia', 2, '100 acre', 2);
 
 -- Add income / expense to user
-INSERT INTO income_and_expenditure(description, amount, type, quantity, fk_ine_farm_id, fk_ine_user_id) values('Rice Sale', '10 lakhs', 'income', '10 bags', 1, 1);
-INSERT INTO income_and_expenditure(description, amount, type, quantity, fk_ine_farm_id, fk_ine_user_id) values('Utility Bill', '1.5 lakhs', 'expense', '500 kW', 1, 1);
-INSERT INTO income_and_expenditure(description, amount, type, quantity, fk_ine_farm_id, fk_ine_user_id) values('Potato Sale', '10 lakhs', 'income', '10 bags', 2, 2);
-INSERT INTO income_and_expenditure(description, amount, type, quantity, fk_ine_farm_id, fk_ine_user_id) values('Utility Bill', '2.5 lakhs', 'expense', '1000 kW', 2, 2);
+INSERT INTO income_and_expenditure(description, amount, type, quantity, fk_ine_farm_id, fk_ine_user_id) values('Rice Sale', 1000000, 'income', '10 bags', 1, 1);
+INSERT INTO income_and_expenditure(description, amount, type, quantity, fk_ine_farm_id, fk_ine_user_id) values('Utility Bill', 150000, 'expense', '500 kW', 1, 1);
+INSERT INTO income_and_expenditure(description, amount, type, quantity, fk_ine_farm_id, fk_ine_user_id) values('Rice Sale', 1000500, 'income', '10 bags', 1, 1);
+INSERT INTO income_and_expenditure(description, amount, type, quantity, fk_ine_farm_id, fk_ine_user_id) values('Tractor Rent', 150030, 'expense', '500 kW', 1, 1);
+INSERT INTO income_and_expenditure(description, amount, type, quantity, fk_ine_farm_id, fk_ine_user_id) values('Corn Sale', 10005660, 'income', '10 bags', 1, 1);
+INSERT INTO income_and_expenditure(description, amount, type, quantity, fk_ine_farm_id, fk_ine_user_id) values('Utility Bill', 150000, 'expense', '500 kW', 1, 1);
+INSERT INTO income_and_expenditure(description, amount, type, quantity, fk_ine_farm_id, fk_ine_user_id) values('Potato Sale', 100000, 'income', '10 bags', 2, 2);
+INSERT INTO income_and_expenditure(description, amount, type, quantity, fk_ine_farm_id, fk_ine_user_id) values('Utility Bill', 250000, 'expense', '1000 kW', 2, 2);
+INSERT INTO income_and_expenditure(description, amount, type, quantity, fk_ine_farm_id, fk_ine_user_id) values('Potato Sale', 100000, 'income', '10 bags', 2, 2);
 
 -- Add user activity
 INSERT INTO user_activities(activity_name, from_date, to_date, fk_user_activities_user_id, fk_user_activities_snp_id) values('Tractor Rental', '2020-06-01 00:00:01', '2020-12-31 23:59:00', 1, 1);
